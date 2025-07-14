@@ -265,9 +265,11 @@ to setTrueAbs
   ;; bacteria populations, simulating immune response.
 
 	ifelse (any? turtles)[
-  	set trueAbsorption absorption * (0.723823204 / ((0.8 * ((count desulfos) / (count turtles))) +
+  	set trueAbsorption absorption / 100 * (0.723823204 / ((0.8 * ((count desulfos) / (count turtles))) +
   	(1 * ((count closts) / (count turtles)))+(1.2 * ((count bacteroides) / (count turtles))) +
   	(0.7 * ((count bifidos) / (count turtles)))))
+
+    set trueAbsorption min list trueAbsorption 1
 	][
 		set trueAbsorption 0
 		print "ERROR! Bacteria died out. Problem with simulation leading to inaccurate results. Terminating Program."
@@ -493,12 +495,12 @@ to makeMetabolites
   	set glucoseReserve (0)
   	set CSReserve (0)
 	][
-  	set inulinReserve ((inulin) * reserveFraction * ((max-pxcor - pxcor)/(max-pxcor - min-pxcor)))
-  	set FOReserve ((FO) * reserveFraction * ((max-pxcor - pxcor)/(max-pxcor - min-pxcor)))
-  	set lactoseReserve ((lactose) * reserveFraction * ((max-pxcor - pxcor)/(max-pxcor - min-pxcor)))
-  	set lactateReserve ((lactate) * reserveFraction * ((max-pxcor - pxcor)/(max-pxcor - min-pxcor)))
-  	set glucoseReserve ((glucose) * reserveFraction * ((max-pxcor - pxcor)/(max-pxcor - min-pxcor)))
-  	set CSReserve ((CS) * reserveFraction * ((max-pxcor - pxcor)/(max-pxcor - min-pxcor)))
+  	set inulinReserve ((inulin) * reserveFraction / 100 * ((max-pxcor - pxcor)/(max-pxcor - min-pxcor)))
+  	set FOReserve ((FO) * reserveFraction / 100 * ((max-pxcor - pxcor)/(max-pxcor - min-pxcor)))
+  	set lactoseReserve ((lactose) * reserveFraction / 100 * ((max-pxcor - pxcor)/(max-pxcor - min-pxcor)))
+  	set lactateReserve ((lactate) * reserveFraction / 100 * ((max-pxcor - pxcor)/(max-pxcor - min-pxcor)))
+  	set glucoseReserve ((glucose) * reserveFraction / 100 * ((max-pxcor - pxcor)/(max-pxcor - min-pxcor)))
+  	set CSReserve ((CS) * reserveFraction / 100 * ((max-pxcor - pxcor)/(max-pxcor - min-pxcor)))
 	]
 
   	set inulin ((inulin - inulinReserve) * (1 - trueAbsorption))
@@ -653,6 +655,7 @@ to inConc
     set energy 100
     set excrete false
     set isSeed false
+    set isStuck false
     set age random 1000
 	  set flowConst 1
 	  set doubConst 1
